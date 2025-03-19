@@ -21,8 +21,6 @@ public partial class MyDbContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
-    public virtual DbSet<ProductsReview> ProductsReviews { get; set; }
-
     public virtual DbSet<Review> Reviews { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -76,14 +74,6 @@ public partial class MyDbContext : DbContext
             entity.HasOne(d => d.IdRevewNavigation).WithMany(p => p.Products)
                 .HasForeignKey(d => d.IdRevew)
                 .HasConstraintName("FK_Products_Reviews");
-        });
-
-        modelBuilder.Entity<ProductsReview>(entity =>
-        {
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
-            entity.Property(e => e.IdReview).HasColumnName("id_review");
         });
 
         modelBuilder.Entity<Review>(entity =>
