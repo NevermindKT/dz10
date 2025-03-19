@@ -22,6 +22,7 @@ namespace Storecd.Repos
         public void Add(T entity)
         {
             _dbSet.Add(entity);
+            _context.SaveChanges();
         }
 
         public T? GetId(int id)
