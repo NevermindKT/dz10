@@ -1,55 +1,53 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Store.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Storecd.Repos
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> where T : class
     {
-        private readonly MyDbContext _context;
-        private readonly DbSet<T> _dbSet;
+        private readonly IDbConnection _dbConnection;
 
-        public Repository(MyDbContext context)
+        public Repository(string connectionString)
         {
-            _context = context;
-            _dbSet = context.Set<T>();
+            _dbConnection = new SqlConnection(connectionString);
         }
 
-        public void Add(T entity)
+        public Repository(IDbConnection dbConnection)
         {
-            _dbSet.Add(entity);
-            _context.SaveChanges();
+            _dbConnection = dbConnection;
         }
 
-        public T? GetId(int id)
+        public IEnumerable<T> GetAll(string tableName)
         {
-            return _dbSet.Find(id);
+            string query = $"SELECT * FROM {tableName}";
+            return _dbConnection.Query<T>(query).ToList();
         }
 
-        public IEnumerable<T> GetAll()
+        public T? GetById(string tableName, int id)
         {
-            return _dbSet.ToList();
+            string query = $"SELECT * FROM {tableName} WHERE Id = @Id";
+            return _dbConnection.QueryFirstOrDefault<T>(query, new { Id = id });
         }
 
-        public void Update(T entity)
+        public void Add(string tableName, T entity)
         {
-            _dbSet.Update(entity);
+            string query = $"INSERT INTO {tableName} (Name, Quantity) VALUES (@Name, @Quantity)";
+            _dbConnection.Execute(query, entity);
         }
 
-        public void Delete(int id)
+        public void Delete(string tableName, int id)
         {
-            var entity = _dbSet.Find(id);
-            if (entity != null)
-                _dbSet.Remove(entity);
-        }
-
-        public void Save()
-        {
-            _context.SaveChanges();
+            string query = $"DELETE FROM {tableName} WHERE Id = @Id";
+            _dbConnection.Execute(query, new { Id = id });
         }
     }
 }

@@ -50,6 +50,10 @@
         "net9.0-windows7.0": {
           "targetAlias": "net9.0-windows",
           "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.1.66, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[9.0.3, )"
@@ -63,6 +67,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.3, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.72, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.9.3, )"
             }
           },
           "imports": [

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Storecd")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b61ab80ed8eec5dc73de00c1e060333ac4014bde")]
 [assembly: System.Reflection.AssemblyProductAttribute("Storecd")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Storecd")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

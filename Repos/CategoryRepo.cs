@@ -9,6 +9,6 @@ namespace Storecd.Repos
 {
     class CategoryRepo : Repository<Category>
     {
-        public CategoryRepo(MyDbContext context) : base(context) { }
+        public CategoryRepo(string connectionString) : base(connectionString) { }
     }
 }

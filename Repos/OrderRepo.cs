@@ -10,15 +10,35 @@ namespace Storecd.Repos
 {
     public class OrderRepo : Repository<Order>
     {
-        public OrderRepo(MyDbContext context) : base(context) { }
+        public OrderRepo(string connectionString) : base(connectionString) { }
+
+        public IEnumerable<Order> GetAllProducts()
+        {
+            return GetAll("Orders");
+        }
+
+        public Order? GetProductById(int id)
+        {
+            return GetById("Orders", id);
+        }
+
+        public void AddOrder(Order order)
+        {
+            Add("Orders", order);
+        }
+
+        public void DeleteProduct(int id)
+        {
+            Delete("Orders", id);
+        }
 
         public List<Order> GetAllOrdersWithUsers()
         {
             using var context = new MyDbContext();
 
             var orders = context.Orders?
-                .Include(o => o.IdUser)
-                .Include(o => o.IdProduct)
+                .Include(o => o.IdUserNavigation)
+                .Include(o => o.IdProductNavigation)
                 .ToList();
 
             return orders;

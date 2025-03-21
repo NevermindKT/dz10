@@ -9,6 +9,6 @@ namespace Storecd.Repos
 {
     class UserRepo : Repository<User>
     {
-        public UserRepo(MyDbContext context) : base(context) { }
+        public UserRepo(string connectionString) : base(connectionString) { }
     }
 }

@@ -9,6 +9,6 @@ namespace Storecd.Repos
 {
     class ReviewRepo : Repository<Review>
     {
-        public ReviewRepo(MyDbContext context) : base(context) { }
+        public ReviewRepo(string connectionString) : base(connectionString) { }
     }
 }
